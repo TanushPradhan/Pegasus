@@ -129,6 +129,18 @@ view_mode = st.sidebar.radio(
     ["Interactive Spreadsheet", "Executive View"]
 )
 
+preset_highlight = st.sidebar.checkbox(
+    "Board Highlight Preset (Costs & Totals)",
+    value=False
+)
+
+if preset_highlight:
+    highlight_columns = [
+        col for col in df.columns
+        if any(k in col.lower() for k in ["cost", "budget", "total", "sum"])
+    ]
+
+
 # ==================================================
 # READ DATA
 # ==================================================
@@ -284,3 +296,4 @@ if global_max is not None:
     st.success(f"Highest value across all files: {round(global_max, 2)}")
 else:
     st.info("No numeric values detected across uploaded files.")
+
